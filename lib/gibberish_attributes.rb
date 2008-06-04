@@ -19,8 +19,8 @@ module GibberishAttributes
     def translate(*attrs)
       attrs.each do |attr|
         self.class_eval <<-CLASS
-          def #{attr}
-            get_value_for_translation(:#{attr}, Gibberish.current_language)
+          def #{attr}(lang = nil)
+            get_value_for_translation(:#{attr}, lang || Gibberish.current_language)
           end
           
           def #{attr}=(value)

@@ -16,6 +16,15 @@ describe GibberishAttributes, '.translate' do
     @instance.title.should == 'monkey'
   end
   
+  it "should create a reader, which accesses a specific language with an argument" do
+    Gibberish.should_not_receive(:current_language)
+    @class.translate :title
+
+    @instance.should_receive(:title_de).and_return('affe')
+
+    @instance.title(:de).should == 'affe'
+  end
+  
   it "should create a writer, which accesses the default language (en)" do
     Gibberish.should_receive(:current_language).and_return(:en)
     @class.translate :title
