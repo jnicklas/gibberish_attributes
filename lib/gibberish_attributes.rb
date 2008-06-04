@@ -5,12 +5,12 @@ module GibberishAttributes
     base.extend ClassMethods
   end
   
-  def get_value_for_translation(attr)
-    self.send("#{attr}_#{Gibberish.current_language}")
+  def get_value_for_translation(attr, lang)
+    self.send("#{attr}_#{lang}")
   end
   
-  def set_value_for_translation(attr, value)
-    self.send("#{attr}_#{Gibberish.current_language}=", value)
+  def set_value_for_translation(attr, lang, value)
+    self.send("#{attr}_#{lang}=", value)
   end
   
   
@@ -20,11 +20,11 @@ module GibberishAttributes
       attrs.each do |attr|
         self.class_eval <<-CLASS
           def #{attr}
-            get_value_for_translation(:#{attr})
+            get_value_for_translation(:#{attr}, Gibberish.current_language)
           end
           
           def #{attr}=(value)
-            set_value_for_translation(:#{attr}, value)
+            set_value_for_translation(:#{attr}, Gibberish.current_language, value)
           end
         CLASS
       end
