@@ -1,0 +1,33 @@
+templater
+=========
+
+Gibberish attributes is an extension to the gibberish localization plugin, which allows a class's attributes to automatically map to different language versions, like this:
+
+
+    class MyClass
+      include GibberishAttributes
+      
+      attr_accessor :title_en, :title_es, :title_de
+      
+      translate :title
+    
+    end
+    
+    a = MyClass.new
+
+    a.title #=> nil
+    a.title = "monkey"
+    a.title #=> "monkey"
+    
+    Gibberish.current_language = :de
+    
+    a.title #=> nil
+    a.title = "affe"
+    a.title #=> "affe"
+    
+    Gibberish.current_language = :en
+    
+    a.title #=> "monkey"
+    
+And that is it
+    
